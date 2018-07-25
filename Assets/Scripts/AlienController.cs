@@ -6,13 +6,11 @@ public class AlienController : MonoBehaviour {
 
     public float speed = 0.1f;
     float bounds = 0.88f;
-    Rigidbody2D rb;
     public bool right = true;
     public float down = 1f;
 
 	void Start ()
     {
-        rb = this.GetComponent<Rigidbody2D>();
 	}
 	
 	void FixedUpdate ()
@@ -22,7 +20,12 @@ public class AlienController : MonoBehaviour {
 
     void Update()
     {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         Movement();
+        if (enemies.Length == 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     void Movement()

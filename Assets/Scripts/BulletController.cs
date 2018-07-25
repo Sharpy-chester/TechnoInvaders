@@ -5,10 +5,8 @@ using UnityEngine;
 public class BulletController : MonoBehaviour {
 
     public float speed = 1f;
-    Collider2D col;
 
 	void Start () {
-        col = this.GetComponent<Collider2D>();
 	}
 	
 	void Update () {
