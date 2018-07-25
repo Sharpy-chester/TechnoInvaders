@@ -5,10 +5,10 @@ using UnityEngine;
 public class BulletController : MonoBehaviour {
 
     public float speed = 1f;
-
+    EnemyController enemyController;
 
 	void Start () {
-
+        
         
 	}
 	
@@ -20,8 +20,10 @@ public class BulletController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-
-        Destroy(collision.gameObject);
+        EnemyController enemyController = collision.gameObject.GetComponent<EnemyController>();
+        float hp = enemyController.hp;
+        hp = hp -5;
+        enemyController.hp = hp;
         Destroy(this.gameObject);
     }
 }

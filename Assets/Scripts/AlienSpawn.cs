@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class AlienSpawn : MonoBehaviour
 {
 
-    public int amount = 3;
-    Vector3 spawnPos = new Vector3(-0.88f, 2, 0);
+    public int amount = 4;
+    Vector3 spawnPos = new Vector3(-0.88f, 3, 0);
     GameObject[] rows;
     public GameObject InvaderRow;
     Quaternion rowRot;
     public Text lvlText;
-    int level = 1;
+    public int level = 1;
     float wait = 0;
 
     void Start()
@@ -28,11 +28,10 @@ public class AlienSpawn : MonoBehaviour
         if (rows.Length == 0)
         {
             
-            spawnPos.y = 2;
+            spawnPos.y = 3;
             Spawn();
             lvlText.text = ("Level: " + level.ToString());
         }
-
     }
 
     void Spawn()
@@ -53,6 +52,7 @@ public class AlienSpawn : MonoBehaviour
         
         
     }
+    
 
 
 

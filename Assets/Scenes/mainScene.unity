@@ -126,7 +126,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4972864035584646, guid: 4a8e5bb292039db43b8abf6d3457bc9f, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4972864035584646, guid: 4a8e5bb292039db43b8abf6d3457bc9f, type: 2}
       propertyPath: m_LocalPosition.z
@@ -267,9 +267,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f625b815589e4419bd1ce2560a1df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: 3
+  amount: 4
   InvaderRow: {fileID: 1272023914159256, guid: 4a8e5bb292039db43b8abf6d3457bc9f, type: 2}
   lvlText: {fileID: 553684152}
+  level: 1
 --- !u!4 &508128848
 Transform:
   m_ObjectHideFlags: 0
