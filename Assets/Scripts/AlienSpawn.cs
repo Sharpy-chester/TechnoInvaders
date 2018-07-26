@@ -14,11 +14,13 @@ public class AlienSpawn : MonoBehaviour
     public Text lvlText;
     public int level = 1;
     float wait = 0;
+    public float hp = 5f;
 
     void Start()
     {
         rowRot = InvaderRow.transform.rotation;
-    }
+        hp = 5f;
+}
 
 
     void Update()
@@ -32,6 +34,7 @@ public class AlienSpawn : MonoBehaviour
             Spawn();
             lvlText.text = ("Level: " + level.ToString());
         }
+        
     }
 
     void Spawn()
@@ -47,11 +50,15 @@ public class AlienSpawn : MonoBehaviour
                 
             }
             wait = 0f;
+
+            if ((level % 10) == 0 && level < 41)
+            {
+                hp += 5f;
+            }
         }
-        
-        
-        
+
     }
+
     
 
 
