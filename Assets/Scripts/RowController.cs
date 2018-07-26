@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlienController : MonoBehaviour {
+public class RowController : MonoBehaviour {
 
     public float speed = 0.1f;
     float bounds = 0.88f;
@@ -20,12 +20,21 @@ public class AlienController : MonoBehaviour {
 
     void Update()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        Transform[] enemiesInRow = new Transform[transform.childCount];
         Movement();
-        if (enemies.Length == 0)
+        if (this.transform.childCount == 0)
         {
+            GameObject controller = GameObject.Find("GameManager");
+            MainController mainController = controller.GetComponent<MainController>();
+            mainController.currentY = 10f;
             Destroy(this.gameObject);
         }
+
+        //for(int i = 0; i < transform.childCount; i++)  if i need it later, this can be used for getting each 
+        //{                                              of the enemies transforms in the row
+        //    enemiesInRow[i] = transform.GetChild(i); 
+        //}
+
     }
 
     void Movement()

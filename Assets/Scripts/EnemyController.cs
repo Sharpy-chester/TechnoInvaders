@@ -7,17 +7,17 @@ public class EnemyController : MonoBehaviour {
 
     public float hp = 5;
     float maxhp = 5;
-    AlienSpawn alienSpawn;
+    MainController mainController;
     public Image healthBar;
 
     void Start ()
     {
         GameObject gameManager = GameObject.Find("GameManager");
-        alienSpawn = gameManager.GetComponent<AlienSpawn>();
+        mainController = gameManager.GetComponent<MainController>();
 
 
-        maxhp = alienSpawn.hp;
-        hp = alienSpawn.hp;
+        maxhp = mainController.hp;
+        hp = mainController.hp;
     }
 
     void Update () {
@@ -29,6 +29,9 @@ public class EnemyController : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
-
+        if (mainController.currentY == this.transform.position.y)
+        {
+            //add shooting function
+        }
 	}
 }

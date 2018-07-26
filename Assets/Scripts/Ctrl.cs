@@ -38,7 +38,7 @@ public class Ctrl : MonoBehaviour
         timer += Time.deltaTime;
         if (timer > shotDelay)
         {
-            GameObject shot = Instantiate(shotPrefab, this.transform.position, this.transform.rotation);
+            Instantiate(shotPrefab, this.transform.position, this.transform.rotation);
             timer = 0f;
         }
     }
