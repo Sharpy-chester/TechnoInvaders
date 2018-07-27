@@ -27,7 +27,6 @@ public class EnemyController : MonoBehaviour {
 
         if (hp <= 0)
         {
-            
             Destroy(this.gameObject);
         }
         if (mainController.currentY == this.transform.position.y)

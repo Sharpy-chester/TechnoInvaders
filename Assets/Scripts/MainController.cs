@@ -23,10 +23,19 @@ public class MainController : MonoBehaviour
     public List<GameObject> col3;
     public List<GameObject> col4;
 
+    public GameObject best1;
+    public GameObject best2;
+    public GameObject best3;
+    public GameObject best4;
+
     void Start()
     {
         rowRot = InvaderRow.transform.rotation;
         hp = 5f;
+        best1.transform.position = new Vector3(0, 10, 0);
+        best2.transform.position = new Vector3(0, 10, 0);
+        best3.transform.position = new Vector3(0, 10, 0);
+        best4.transform.position = new Vector3(0, 10, 0);
     }
 
     void Update()
@@ -51,34 +60,23 @@ public class MainController : MonoBehaviour
                 }
             }
         }
-        foreach (GameObject i in col1)
+        if (best1 == null)
         {
-            if (i == null)
-            {
-                col1.Remove(i);
-            }
+            best1 = GameObject.Find("Dummy");
         }
-        foreach (GameObject i in col2)
+        if (best2 == null)
         {
-            if (i == null)
-            {
-                col2.Remove(i);
-            }
+            best2 = GameObject.Find("Dummy");
         }
-        foreach (GameObject i in col3)
+        if (best3 == null)
         {
-            if (i == null)
-            {
-                col3.Remove(i);
-            }
+            best3 = GameObject.Find("Dummy");
         }
-        foreach (GameObject i in col4)
+        if (best4 == null)
         {
-            if (i == null)
-            {
-                col4.Remove(i);
-            }
+            best4 = GameObject.Find("Dummy");
         }
+        ColumnManager();
     }
 
     void Spawn()
@@ -91,7 +89,7 @@ public class MainController : MonoBehaviour
             {
                 Instantiate(InvaderRow, spawnPos, rowRot);
                 spawnPos.y -= 1;
-                
+
 
             }
             wait = 0f;
@@ -101,7 +99,7 @@ public class MainController : MonoBehaviour
             }
         }
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (GameObject a in enemies) 
+        foreach (GameObject a in enemies)
         {
             if (a.transform.localPosition.x == -1.5f)
             {
@@ -119,6 +117,60 @@ public class MainController : MonoBehaviour
             {
                 col4.Add(a);
             }
-        }   
+        }
     }
+    void ColumnManager()
+    {
+        foreach (GameObject i in col1)
+        {
+            if (i == null)
+            {
+                col1.Remove(i);
+            }
+            else if (i.transform.position.y < best1.transform.position.y) //this part may be broken
+            {
+                best1 = i;
+
+            }
+
+        }
+        foreach (GameObject i in col2)
+        {
+            if (i == null)
+            {
+                col2.Remove(i);
+            }
+            else if (i.transform.position.y < best2.transform.position.y)
+            {
+                best2 = i;
+
+            }
+        }
+        foreach (GameObject i in col3)
+        {
+            if (i == null)
+            {
+                col3.Remove(i);
+            }
+            else if (i.transform.position.y < best3.transform.position.y)
+            {
+                best3 = i;
+
+            }
+        }
+        foreach (GameObject i in col4)
+        {
+            if (i == null)
+            {
+                col4.Remove(i);
+            }
+            else if (i.transform.position.y < best4.transform.position.y)
+            {
+                best4 = i;
+
+            }
+        }
+        
+    }
+
 }
