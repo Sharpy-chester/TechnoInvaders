@@ -11,6 +11,7 @@ public class RowController : MonoBehaviour {
 
 	void Start ()
     {
+        
 	}
 	
 	void FixedUpdate ()

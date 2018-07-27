@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class MainController : MonoBehaviour
 {
@@ -16,6 +17,11 @@ public class MainController : MonoBehaviour
     float wait = 0;
     public float hp = 5f;
     public float currentY = 10;
+    public GameObject[] enemies;
+    public List<GameObject> col1;
+    public List<GameObject> col2;
+    public List<GameObject> col3;
+    public List<GameObject> col4;
 
     void Start()
     {
@@ -23,10 +29,9 @@ public class MainController : MonoBehaviour
         hp = 5f;
     }
 
-
     void Update()
     {
-
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
         rows = GameObject.FindGameObjectsWithTag("Row");
         if (rows.Length == 0)
         {
@@ -40,21 +45,40 @@ public class MainController : MonoBehaviour
         {
             foreach (GameObject row in rows)
             {
-                
                 if (row.transform.position.y < currentY)
                 {
                     currentY = row.transform.position.y;
-                    //need to get actual gameobject
-                    //in the actual space invaders it gets the furthest one down per vertical row. Will need to change this
                 }
             }
         }
-
-        print(currentY);
-
-
-
-
+        foreach (GameObject i in col1)
+        {
+            if (i == null)
+            {
+                col1.Remove(i);
+            }
+        }
+        foreach (GameObject i in col2)
+        {
+            if (i == null)
+            {
+                col2.Remove(i);
+            }
+        }
+        foreach (GameObject i in col3)
+        {
+            if (i == null)
+            {
+                col3.Remove(i);
+            }
+        }
+        foreach (GameObject i in col4)
+        {
+            if (i == null)
+            {
+                col4.Remove(i);
+            }
+        }
     }
 
     void Spawn()
@@ -67,20 +91,34 @@ public class MainController : MonoBehaviour
             {
                 Instantiate(InvaderRow, spawnPos, rowRot);
                 spawnPos.y -= 1;
+                
 
             }
             wait = 0f;
-
             if ((level % 10) == 0 && level < 41)
             {
                 hp += 5f;
             }
         }
-
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject a in enemies) 
+        {
+            if (a.transform.localPosition.x == -1.5f)
+            {
+                col1.Add(a);
+            }
+            if (a.transform.localPosition.x == -.5f)
+            {
+                col2.Add(a);
+            }
+            if (a.transform.localPosition.x == .5f)
+            {
+                col3.Add(a);
+            }
+            if (a.transform.localPosition.x == 1.5f)
+            {
+                col4.Add(a);
+            }
+        }   
     }
-
-
-
-
-
 }
