@@ -21,7 +21,6 @@ public class RowController : MonoBehaviour {
 
     void Update()
     {
-        Transform[] enemiesInRow = new Transform[transform.childCount];
         Movement();
         if (this.transform.childCount == 0)
         {
