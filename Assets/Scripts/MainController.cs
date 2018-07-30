@@ -28,6 +28,7 @@ public class MainController : MonoBehaviour
     public GameObject best3;
     public GameObject best4;
 
+
     void Start()
     {
         rowRot = InvaderRow.transform.rotation;
@@ -40,6 +41,7 @@ public class MainController : MonoBehaviour
 
     void Update()
     {
+
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         rows = GameObject.FindGameObjectsWithTag("Row");
         if (rows.Length == 0)
@@ -78,6 +80,7 @@ public class MainController : MonoBehaviour
         }
         ColumnManager();
     }
+
 
     void Spawn()
     {
@@ -121,56 +124,50 @@ public class MainController : MonoBehaviour
     }
     void ColumnManager()
     {
-        foreach (GameObject i in col1)
+
+        for (int i = 0; i < col1.Count; i++)
         {
-            if (i == null)
+            if (col1[i] == null)
             {
-                col1.Remove(i);
+                col1.Remove(col1[i]);
             }
-            else if (i.transform.position.y < best1.transform.position.y) //this part may be broken
+            else if (col1[i].transform.position.y < best1.transform.position.y)
             {
-                best1 = i;
-
-            }
-
-        }
-        foreach (GameObject i in col2)
-        {
-            if (i == null)
-            {
-                col2.Remove(i);
-            }
-            else if (i.transform.position.y < best2.transform.position.y)
-            {
-                best2 = i;
-
+                best1 = col1[i];
             }
         }
-        foreach (GameObject i in col3)
+        for (int i = 0; i < col2.Count; i++)
         {
-            if (i == null)
+            if (col2[i] == null)
             {
-                col3.Remove(i);
+                col2.Remove(col2[i]);
             }
-            else if (i.transform.position.y < best3.transform.position.y)
+            else if (col2[i].transform.position.y < best2.transform.position.y)
             {
-                best3 = i;
-
+                best2 = col2[i];
             }
         }
-        foreach (GameObject i in col4)
+        for (int i = 0; i < col3.Count; i++)
         {
-            if (i == null)
+            if (col3[i] == null)
             {
-                col4.Remove(i);
+                col3.Remove(col3[i]);
             }
-            else if (i.transform.position.y < best4.transform.position.y)
+            else if (col3[i].transform.position.y < best3.transform.position.y)
             {
-                best4 = i;
-
+                best3 = col3[i];
             }
         }
-        
+        for (int i = 0; i < col4.Count; i++)
+        {
+            if (col4[i] == null)
+            {
+                col4.Remove(col4[i]);
+            }
+            else if (col4[i].transform.position.y < best4.transform.position.y)
+            {
+                best4 = col4[i];
+            }
+        }
     }
-
 }

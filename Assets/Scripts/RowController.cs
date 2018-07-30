@@ -2,25 +2,60 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RowController : MonoBehaviour {
+public class RowController : MonoBehaviour
+{
 
     public float speed = 0.1f;
-    float bounds = 0.88f;
+    float bounds = 2.8f;
     public bool right = true;
     public float down = 1f;
+    public bool horizontal = true;
+    public float maxWait = 1f;
+    public float wait = 0f;
+    public GameObject enemy;
+    public int amount = 5;
+    public float spawnAtX = 0f;
+    public Vector3 spawnat;
+    float leftEdge;
+    Vector3 leftEdgeVector;
+    float rightEdge;
+    Vector3 rightEdgeVector;
+    GameObject leftEdgeGO;
+    GameObject rightEdgeGO;
+    public float offset = 1.88f;
+    public bool test = false;
 
-	void Start ()
+    void Start()
     {
-        
-	}
-	
-	void FixedUpdate ()
+        for (int i = 0; i < amount; i++)
+        {
+            spawnat = new Vector3(spawnAtX, this.transform.position.y, this.transform.position.z);
+            spawnAtX = spawnAtX - 0.88f;
+            GameObject enemyObj = Instantiate(enemy, spawnat, this.transform.rotation);
+            enemyObj.transform.parent = this.transform;
+        }
+        spawnAtX = 0f;
+        spawnat = new Vector3(spawnAtX, this.transform.position.y, this.transform.position.z);
+        leftEdge = (((float)amount * -0.88f) - 0.4f) + 0.88f;
+        leftEdgeVector = new Vector3(leftEdge, this.transform.position.y, this.transform.position.z);
+        leftEdgeGO = Instantiate(new GameObject("LeftEdge"), leftEdgeVector, this.transform.rotation);
+        leftEdgeGO.transform.parent = this.transform;
+        rightEdge = this.transform.transform.position.x + 0.4f; //half of an enemy is approx 0.4 on the x (within margin of error)
+        rightEdgeVector = new Vector3(rightEdge, this.transform.position.y, this.transform.position.z);
+        rightEdgeGO = Instantiate(new GameObject("RightEdge"), rightEdgeVector, this.transform.rotation);
+        rightEdgeGO.transform.parent = this.transform;
+        offset = (float)amount * 0.38f;
+        this.transform.position = new Vector3(this.transform.position.x + offset, this.transform.position.y, this.transform.position.z);
+    }
+
+    void FixedUpdate()
     {
-        
-	}
+
+    }
 
     void Update()
     {
+        wait += Time.deltaTime;
         Movement();
         if (this.transform.childCount == 0)
         {
@@ -39,27 +74,101 @@ public class RowController : MonoBehaviour {
 
     void Movement()
     {
-        if (right)
+        if (leftEdgeGO.transform.position.x < -bounds)
         {
-            this.transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
-            if (this.transform.position.x > bounds)
+            if (test == false)
             {
-                this.transform.Translate (new Vector3(0, -1, 0));
-                right = false;
-                
+                horizontal = false;
+
+            }
+
+        }
+        else if (rightEdgeGO.transform.position.x > bounds)
+        {
+            if (test == false)
+            {
+                horizontal = false;
+
+            }
+
+        }
+        if (horizontal)
+        {
+            if (right && wait > maxWait)
+            {
+
+                this.transform.position = new Vector3(this.transform.position.x + 0.25f, this.transform.position.y, this.transform.position.z);
+                wait = 0f;
+
+            }
+
+            else if (wait > maxWait)
+            {
+                this.transform.position = new Vector3(this.transform.position.x - 0.25f, this.transform.position.y, this.transform.position.z);
+                wait = 0f;
             }
         }
         else
         {
-            this.transform.Translate(new Vector3(-speed * Time.deltaTime, 0, 0));
-            if (this.transform.position.x < -bounds)
+            if (wait > maxWait)
             {
-                this.transform.Translate (new Vector3(0, -1, 0));
-                right = true;
-                
+                this.transform.Translate(new Vector3(0, -1, 0));
+                wait = 0f;
+                right = !right;
+                horizontal = true;
+                test = true;
             }
         }
 
+
+
     }
+    //     if (horizontal)
+    //     {
+    //         if (right)
+    //         {
+    //             this.transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
+    //             if (this.transform.position.x > bounds)
+    //             {
+
+    //                 right = false;
+    //                 horizontal = false;
+    //                 StartCoroutine(Horizontal(horizontal));
+    //             }
+    //         }
+    //         else
+    //         {
+    //             this.transform.Translate(new Vector3(-speed * Time.deltaTime, 0, 0));
+    //             if (this.transform.position.x < -bounds)
+    //             {
+
+    //                 right = true;
+    //                 horizontal = false;
+    //                 StartCoroutine(Horizontal(horizontal));
+    //             }
+    //         }
+    //     }
+    //     else
+    //     {
+
+
+    //     }
+
+
+
+    // }
+    // IEnumerator Horizontal(bool horizontal)
+    // {
+    //     Vector3 moveTo = new Vector3(this.transform.position.x, this.transform.position.y - 1f, this.transform.position.z);
+    //     float duration = 0.5f;
+    //     for (float t = 0f; t < duration; t += Time.deltaTime)
+    //     {
+    //         this.transform.position = Vector3.Lerp(this.transform.position, moveTo, t / duration);
+    //     }
+    //     horizontal = true;
+
+
+    //     yield return horizontal;
+    // }
 
 }
