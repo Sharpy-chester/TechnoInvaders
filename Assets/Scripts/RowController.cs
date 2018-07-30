@@ -6,7 +6,7 @@ public class RowController : MonoBehaviour
 {
 
     public float speed = 0.1f;
-    float bounds = 2.8f;
+    float bounds = 2.76f;
     public bool right = true;
     public float down = 1f;
     public bool horizontal = true;
@@ -82,6 +82,7 @@ public class RowController : MonoBehaviour
 
             }
 
+
         }
         else if (rightEdgeGO.transform.position.x > bounds)
         {
@@ -91,6 +92,10 @@ public class RowController : MonoBehaviour
 
             }
 
+        }
+        if (wait > maxWait)
+        {
+            test = false;
         }
         if (horizontal)
         {
@@ -119,56 +124,5 @@ public class RowController : MonoBehaviour
                 test = true;
             }
         }
-
-
-
     }
-    //     if (horizontal)
-    //     {
-    //         if (right)
-    //         {
-    //             this.transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
-    //             if (this.transform.position.x > bounds)
-    //             {
-
-    //                 right = false;
-    //                 horizontal = false;
-    //                 StartCoroutine(Horizontal(horizontal));
-    //             }
-    //         }
-    //         else
-    //         {
-    //             this.transform.Translate(new Vector3(-speed * Time.deltaTime, 0, 0));
-    //             if (this.transform.position.x < -bounds)
-    //             {
-
-    //                 right = true;
-    //                 horizontal = false;
-    //                 StartCoroutine(Horizontal(horizontal));
-    //             }
-    //         }
-    //     }
-    //     else
-    //     {
-
-
-    //     }
-
-
-
-    // }
-    // IEnumerator Horizontal(bool horizontal)
-    // {
-    //     Vector3 moveTo = new Vector3(this.transform.position.x, this.transform.position.y - 1f, this.transform.position.z);
-    //     float duration = 0.5f;
-    //     for (float t = 0f; t < duration; t += Time.deltaTime)
-    //     {
-    //         this.transform.position = Vector3.Lerp(this.transform.position, moveTo, t / duration);
-    //     }
-    //     horizontal = true;
-
-
-    //     yield return horizontal;
-    // }
-
 }
