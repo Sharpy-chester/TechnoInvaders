@@ -16,41 +16,52 @@ public class RowController : MonoBehaviour
     public int amount = 5;
     public float spawnAtX = 0f;
     public Vector3 spawnat;
-    float leftEdge;
+    float leftEdgeX;
     Vector3 leftEdgeVector;
-    float rightEdge;
+    float rightEdgeX;
     Vector3 rightEdgeVector;
-    GameObject leftEdgeGO;
-    GameObject rightEdgeGO;
+    GameObject leftEdge;
+    GameObject rightEdge;
+    public GameObject leftEdgeGO;
+    public GameObject rightEdgeGO;
     public float offset = 1.88f;
     public bool test = false;
+    public List<GameObject> enemiesInRow;
 
     void Start()
     {
         for (int i = 0; i < amount; i++)
         {
             spawnat = new Vector3(spawnAtX, this.transform.position.y, this.transform.position.z);
+            GameObject enemyObj = Instantiate(enemy, spawnat, this.transform.rotation, this.transform);
             spawnAtX = spawnAtX - 0.88f;
-            GameObject enemyObj = Instantiate(enemy, spawnat, this.transform.rotation);
-            enemyObj.transform.parent = this.transform;
+
+
         }
+        leftEdgeGO.AddComponent<Transform>();
+        rightEdgeGO.AddComponent<Transform>();
+
         spawnAtX = 0f;
         spawnat = new Vector3(spawnAtX, this.transform.position.y, this.transform.position.z);
-        leftEdge = (((float)amount * -0.88f) - 0.4f) + 0.88f;
-        leftEdgeVector = new Vector3(leftEdge, this.transform.position.y, this.transform.position.z);
-        leftEdgeGO = Instantiate(new GameObject("LeftEdge"), leftEdgeVector, this.transform.rotation);
-        leftEdgeGO.transform.parent = this.transform;
-        rightEdge = this.transform.transform.position.x + 0.4f; //half of an enemy is approx 0.4 on the x (within margin of error)
-        rightEdgeVector = new Vector3(rightEdge, this.transform.position.y, this.transform.position.z);
-        rightEdgeGO = Instantiate(new GameObject("RightEdge"), rightEdgeVector, this.transform.rotation);
-        rightEdgeGO.transform.parent = this.transform;
+
+        leftEdgeX = (((float)amount * -0.88f) - 0.4f) + 0.88f;
+        leftEdgeVector = new Vector3(leftEdgeX, this.transform.position.y, this.transform.position.z);
+        leftEdge = Instantiate(leftEdgeGO, leftEdgeVector, this.transform.rotation, this.transform);
+        print("test");
+        rightEdgeX = this.transform.transform.position.x + 0.4f; //half of an enemy is approx 0.4 on the x (within margin of error)
+        rightEdgeVector = new Vector3(rightEdgeX, this.transform.position.y, this.transform.position.z);
+        rightEdge = Instantiate(rightEdgeGO, rightEdgeVector, this.transform.rotation, this.transform);
+
         offset = (float)amount * 0.38f;
         this.transform.position = new Vector3(this.transform.position.x + offset, this.transform.position.y, this.transform.position.z);
-    }
 
-    void FixedUpdate()
-    {
-
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.tag == "Enemy")
+            {
+                enemiesInRow.Add(transform.GetChild(i).gameObject);
+            }
+        }
     }
 
     void Update()
@@ -59,22 +70,30 @@ public class RowController : MonoBehaviour
         Movement();
         if (this.transform.childCount == 0)
         {
+
+        }
+
+        for (int i = 0; i < enemiesInRow.Count; i++)
+        {
+            if (enemiesInRow[i] == null)
+            {
+                enemiesInRow.Remove(enemiesInRow[i]);
+            }
+        }
+        if (enemiesInRow.Count == 0)
+        {
             GameObject controller = GameObject.Find("GameManager");
             MainController mainController = controller.GetComponent<MainController>();
             mainController.currentY = 10f;
             Destroy(this.gameObject);
+            spawnAtX = 0f;
         }
-
-        //for(int i = 0; i < transform.childCount; i++)  if i need it later, this can be used for getting each 
-        //{                                              of the enemies transforms in the row
-        //    enemiesInRow[i] = transform.GetChild(i); 
-        //}
 
     }
 
     void Movement()
     {
-        if (leftEdgeGO.transform.position.x < -bounds)
+        if (leftEdge.transform.position.x < -bounds)
         {
             if (test == false)
             {
@@ -84,7 +103,7 @@ public class RowController : MonoBehaviour
 
 
         }
-        else if (rightEdgeGO.transform.position.x > bounds)
+        else if (rightEdge.transform.position.x > bounds)
         {
             if (test == false)
             {
