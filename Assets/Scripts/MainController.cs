@@ -8,7 +8,7 @@ public class MainController : MonoBehaviour
 {
 
     public int amount = 4;
-    Vector3 spawnPos = new Vector3(-0.88f, 3, 0);
+    Vector3 spawnPos = new Vector3(0, 3, 0);
     GameObject[] rows;
     public GameObject InvaderRow;
     Quaternion rowRot;
@@ -22,11 +22,13 @@ public class MainController : MonoBehaviour
     public List<GameObject> col2;
     public List<GameObject> col3;
     public List<GameObject> col4;
+    public List<GameObject> col5;
 
     public GameObject best1;
     public GameObject best2;
     public GameObject best3;
     public GameObject best4;
+    public GameObject best5;
 
 
     void Start()
@@ -37,6 +39,7 @@ public class MainController : MonoBehaviour
         best2.transform.position = new Vector3(0, 10, 0);
         best3.transform.position = new Vector3(0, 10, 0);
         best4.transform.position = new Vector3(0, 10, 0);
+        best5.transform.position = new Vector3(0, 10, 0);
     }
 
     void Update()
@@ -78,6 +81,11 @@ public class MainController : MonoBehaviour
         {
             best4 = GameObject.Find("Dummy");
         }
+        if (best5 == null)
+        {
+            best5 = GameObject.Find("Dummy");
+        }
+
         ColumnManager();
     }
 
@@ -119,6 +127,10 @@ public class MainController : MonoBehaviour
             if (a.transform.localPosition.x == 1.5f)
             {
                 col4.Add(a);
+            }
+            if (a.transform.localPosition.x == 2.5f)
+            {
+                col5.Add(a);
             }
         }
     }
@@ -167,6 +179,17 @@ public class MainController : MonoBehaviour
             else if (col4[i].transform.position.y < best4.transform.position.y)
             {
                 best4 = col4[i];
+            }
+        }
+        for (int i = 0; i < col5.Count; i++)
+        {
+            if (col5[i] == null)
+            {
+                col5.Remove(col5[i]);
+            }
+            else if (col5[i].transform.position.y < best5.transform.position.y)
+            {
+                best5 = col5[i];
             }
         }
     }

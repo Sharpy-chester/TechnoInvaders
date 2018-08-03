@@ -41,8 +41,6 @@ public class RowController : MonoBehaviour
         leftEdgeGO.AddComponent<Transform>();
         rightEdgeGO.AddComponent<Transform>();
 
-        spawnAtX = 0f;
-        spawnat = new Vector3(spawnAtX, this.transform.position.y, this.transform.position.z);
 
         leftEdgeX = (((float)amount * -0.88f) - 0.4f) + 0.88f;
         leftEdgeVector = new Vector3(leftEdgeX, this.transform.position.y, this.transform.position.z);
@@ -52,8 +50,7 @@ public class RowController : MonoBehaviour
         rightEdgeVector = new Vector3(rightEdgeX, this.transform.position.y, this.transform.position.z);
         rightEdge = Instantiate(rightEdgeGO, rightEdgeVector, this.transform.rotation, this.transform);
 
-        offset = (float)amount * 0.38f;
-        this.transform.position = new Vector3(this.transform.position.x + offset, this.transform.position.y, this.transform.position.z);
+
 
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -62,6 +59,8 @@ public class RowController : MonoBehaviour
                 enemiesInRow.Add(transform.GetChild(i).gameObject);
             }
         }
+        offset = (float)amount * 0.38f;
+        this.transform.position = new Vector3(this.transform.position.x + offset, this.transform.position.y, this.transform.position.z);
     }
 
     void Update()
