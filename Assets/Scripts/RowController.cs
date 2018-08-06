@@ -14,7 +14,7 @@ public class RowController : MonoBehaviour
     public float wait = 0f;
     public GameObject enemy;
     public int amount = 5;
-    public float spawnAtX = 0f;
+    float spawnAtX = 0f;
     public Vector3 spawnat;
     float leftEdgeX;
     Vector3 leftEdgeVector;
@@ -27,25 +27,30 @@ public class RowController : MonoBehaviour
     public float offset = 1.88f;
     public bool test = false;
     public List<GameObject> enemiesInRow;
+    GameObject controller;
+    MainController mainController;
+    int addat = 0;
 
     void Start()
     {
+        controller = GameObject.Find("GameManager");
+        mainController = controller.GetComponent<MainController>();
         for (int i = 0; i < amount; i++)
         {
             spawnat = new Vector3(spawnAtX, this.transform.position.y, this.transform.position.z);
             GameObject enemyObj = Instantiate(enemy, spawnat, this.transform.rotation, this.transform);
+
+            mainController.col[i].Add(enemyObj);
+
             spawnAtX = spawnAtX - 0.88f;
 
 
         }
-        leftEdgeGO.AddComponent<Transform>();
-        rightEdgeGO.AddComponent<Transform>();
 
 
         leftEdgeX = (((float)amount * -0.88f) - 0.4f) + 0.88f;
         leftEdgeVector = new Vector3(leftEdgeX, this.transform.position.y, this.transform.position.z);
         leftEdge = Instantiate(leftEdgeGO, leftEdgeVector, this.transform.rotation, this.transform);
-        print("test");
         rightEdgeX = this.transform.transform.position.x + 0.4f; //half of an enemy is approx 0.4 on the x (within margin of error)
         rightEdgeVector = new Vector3(rightEdgeX, this.transform.position.y, this.transform.position.z);
         rightEdge = Instantiate(rightEdgeGO, rightEdgeVector, this.transform.rotation, this.transform);
@@ -61,6 +66,12 @@ public class RowController : MonoBehaviour
         }
         offset = (float)amount * 0.38f;
         this.transform.position = new Vector3(this.transform.position.x + offset, this.transform.position.y, this.transform.position.z);
+
+
+
+
+
+
     }
 
     void Update()
@@ -81,14 +92,17 @@ public class RowController : MonoBehaviour
         }
         if (enemiesInRow.Count == 0)
         {
-            GameObject controller = GameObject.Find("GameManager");
-            MainController mainController = controller.GetComponent<MainController>();
+
+
             mainController.currentY = 10f;
             Destroy(this.gameObject);
             spawnAtX = 0f;
         }
 
+
     }
+
+
 
     void Movement()
     {

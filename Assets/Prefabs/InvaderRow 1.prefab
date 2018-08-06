@@ -77,11 +77,11 @@ MonoBehaviour:
   down: 1
   horizontal: 1
   maxWait: 1
-  wait: 0
+  wait: 1.7638807
   enemy: {fileID: 1566353819811748, guid: 4ccc85ecad70ce64386f64abd2da1e5a, type: 2}
-  amount: 5
-  spawnAtX: 0
-  spawnat: {x: 0, y: 0, z: 0}
+  amount: 4
+  spawnAtX: -0.88
+  spawnat: {x: 0, y: 3, z: 0}
   leftEdgeGO: {fileID: 1906813717020736, guid: 926b08debbe74a94d815ef5756b028fd, type: 2}
   rightEdgeGO: {fileID: 1939986381829096, guid: a233430204de2c342b543c4f2c9334ca,
     type: 2}
