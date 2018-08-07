@@ -23,7 +23,7 @@ public class BulletController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.name != "Shot 1(Clone)")
+        if (collision.name == "Invader(Clone)")
         {
             EnemyController enemyController = collision.gameObject.GetComponent<EnemyController>();
             float hp = enemyController.hp;
@@ -31,7 +31,7 @@ public class BulletController : MonoBehaviour
             enemyController.hp = hp;
             Destroy(this.gameObject);
         }
-        
+
 
     }
 }

@@ -29,7 +29,6 @@ public class RowController : MonoBehaviour
     public List<GameObject> enemiesInRow;
     GameObject controller;
     MainController mainController;
-    int addat = 0;
 
     void Start()
     {

@@ -17,8 +17,12 @@ public class MainController : MonoBehaviour
     float wait = 0;
     public float hp = 5f;
     public float currentY = 10;
+    public Text scoreText;
+    public float score;
     public GameObject[] enemies;
     public List<GameObject>[] col = new List<GameObject>[4];
+    Ctrl ctrl;
+    public GameObject player;
 
     public GameObject best1;
     public GameObject best2;
@@ -26,6 +30,12 @@ public class MainController : MonoBehaviour
     public GameObject best4;
     public GameObject best5;
     public GameObject dummy;
+    int lives = 3;
+    public GameObject heart;
+    public List<GameObject> hearts = new List<GameObject>();
+    public GameObject canvas;
+
+    Vector3 livesSpawn = new Vector3(43, 555, 0);
 
 
     void Start()
@@ -35,7 +45,18 @@ public class MainController : MonoBehaviour
         col[2] = new List<GameObject>();
         col[3] = new List<GameObject>();
 
+        for (int i = 0; i < lives; i++)
+        {
+            print(i);
+            GameObject x = Instantiate(heart, livesSpawn, this.transform.rotation);
+            x.transform.SetParent(canvas.transform);
+            hearts.Add(x.gameObject);
+            livesSpawn.x += 38f;
 
+        }
+
+        score = 0f;
+        ctrl = player.GetComponent<Ctrl>();
 
         rowRot = InvaderRow.transform.rotation;
         hp = 5f;
@@ -73,7 +94,9 @@ public class MainController : MonoBehaviour
                 col[i] = col[i].Where(item => item != null).ToList();
             }
         }
+        ScoreManager();
         ColumnManager();
+        LivesManager();
     }
 
     void Spawn()
@@ -155,5 +178,36 @@ public class MainController : MonoBehaviour
 
         // }
 
+    }
+    void ScoreManager()
+    {
+        scoreText.text = ("Score: " + score.ToString());
+    }
+
+    void LivesManager()
+    {
+        for (int i = 0; i < hearts.Count; i++)
+        {
+            if (hearts[i] == null)
+            {
+                hearts.Remove(hearts[i]);
+            }
+        }
+        if (ctrl.hp <= 0f)
+        {
+            lives--;
+            ctrl.hp = ctrl.maxHp;
+            int x = 0;
+            for (int i = 0; i < (hearts.Count - 1); i++)
+            {
+                x++;
+                print(x);
+            }
+            Destroy(hearts[x]);
+        }
+        if (lives == 0)
+        {
+            Destroy(player);
+        }
     }
 }

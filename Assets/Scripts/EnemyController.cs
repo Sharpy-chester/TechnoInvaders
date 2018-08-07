@@ -34,6 +34,7 @@ public class EnemyController : MonoBehaviour
 
         if (hp <= 0)
         {
+            mainController.score += 10f;
             Destroy(this.gameObject);
         }
 
