@@ -16,16 +16,52 @@ public class Ctrl : MonoBehaviour
     public float hp = 100f;
     public float maxHp = 100f;
     float hpBar;
+    public bool alive = true;
+    public float wait = 0f;
+    public float maxWait = 2f;
+    SpriteRenderer spriteRenderer;
+    public Sprite explosion;
+    public Sprite player;
 
     void Start()
     {
         mainController = controller.GetComponent<MainController>();
         hp = maxHp;
+        spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
     }
-    void FixedUpdate()
+    void Update()
     {
-        Movement();
-        Shooting();
+        if (alive)
+        {
+            Movement();
+            Shooting();
+        }
+        else
+        {
+            wait += Time.deltaTime;
+            if (wait >= maxWait)
+            {
+
+                wait = 0;
+                hp = maxHp;
+                spriteRenderer.sprite = player;
+                mainController.lives--;
+                int x = 0;
+                for (int i = 0; i < (mainController.hearts.Count - 1); i++)
+                {
+                    x++;
+                }
+                Destroy(mainController.hearts[x]);
+                alive = true;
+
+            }
+            else
+            {
+
+                spriteRenderer.sprite = explosion;
+            }
+        }
+
         Health();
     }
 
@@ -57,6 +93,10 @@ public class Ctrl : MonoBehaviour
     {
         hpBar = hp / maxHp;
         hpImage.rectTransform.localScale = new Vector3(hpBar, 1, 1);
+        if (hp <= 0)
+        {
+            alive = false;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -65,6 +105,7 @@ public class Ctrl : MonoBehaviour
         {
             hp -= 5f;
             Destroy(collision.gameObject);
+
         }
     }
 

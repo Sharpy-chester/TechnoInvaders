@@ -19,7 +19,7 @@ public class MainController : MonoBehaviour
     public float currentY = 10;
     public Text scoreText;
     public float score;
-    public GameObject[] enemies;
+    GameObject[] enemies;
     public List<GameObject>[] col = new List<GameObject>[4];
     Ctrl ctrl;
     public GameObject player;
@@ -30,7 +30,7 @@ public class MainController : MonoBehaviour
     public GameObject best4;
     public GameObject best5;
     public GameObject dummy;
-    int lives = 3;
+    public int lives = 3;
     public GameObject heart;
     public List<GameObject> hearts = new List<GameObject>();
     public GameObject canvas;
@@ -193,18 +193,17 @@ public class MainController : MonoBehaviour
                 hearts.Remove(hearts[i]);
             }
         }
-        if (ctrl.hp <= 0f)
-        {
-            lives--;
-            ctrl.hp = ctrl.maxHp;
-            int x = 0;
-            for (int i = 0; i < (hearts.Count - 1); i++)
-            {
-                x++;
-                print(x);
-            }
-            Destroy(hearts[x]);
-        }
+        // if (ctrl.alive == false && ctrl.wait >= ctrl.maxWait)
+        // {
+        //     lives--;
+
+        //     int x = 0;
+        //     for (int i = 0; i < (hearts.Count - 1); i++)
+        //     {
+        //         x++;
+        //     }
+        //     Destroy(hearts[x]);
+        // }
         if (lives == 0)
         {
             Destroy(player);
