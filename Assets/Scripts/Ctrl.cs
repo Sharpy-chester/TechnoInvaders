@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Ctrl : MonoBehaviour
 {
 
-    public float speed = .02f;
+    public float speed = 1f;
     public float timer;
     public float shotDelay = 1f;
     public GameObject shotPrefab;
@@ -35,6 +35,7 @@ public class Ctrl : MonoBehaviour
         {
             Movement();
             Shooting();
+            Health();
         }
         else
         {
@@ -62,9 +63,17 @@ public class Ctrl : MonoBehaviour
             }
         }
 
-        Health();
+
     }
 
+    // public void Left()
+    // {
+    //     this.transform.position += Vector3.left * (speed * Time.deltaTime);
+    // }
+    // public void Right()
+    // {
+    //     this.transform.position += Vector3.right * (speed * Time.deltaTime);
+    // }
     void Movement()
     {
         float isMoving = Input.GetAxis("Horizontal");
@@ -76,7 +85,10 @@ public class Ctrl : MonoBehaviour
         {
             isMoving = 0;
         }
-        this.transform.position += Vector3.right * isMoving * speed;
+        this.transform.position += Vector3.right * isMoving * (speed * Time.deltaTime);
+
+
+
     }
 
     void Shooting()

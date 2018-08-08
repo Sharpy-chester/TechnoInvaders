@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Linq;
 
 public class MainController : MonoBehaviour
@@ -19,9 +20,9 @@ public class MainController : MonoBehaviour
     public float currentY = 10;
     public Text scoreText;
     public float score;
-    GameObject[] enemies;
+    // GameObject[] enemies;
     public List<GameObject>[] col = new List<GameObject>[4];
-    Ctrl ctrl;
+    // Ctrl ctrl;
     public GameObject player;
 
     public GameObject best1;
@@ -34,12 +35,17 @@ public class MainController : MonoBehaviour
     public GameObject heart;
     public List<GameObject> hearts = new List<GameObject>();
     public GameObject canvas;
+    public Text gameOver;
+    Text text;
+    float gameOverWait = 0f;
 
     Vector3 livesSpawn = new Vector3(43, 555, 0);
 
 
     void Start()
     {
+        text = gameOver.GetComponent<Text>();
+        text.enabled = false;
         col[0] = new List<GameObject>();
         col[1] = new List<GameObject>();
         col[2] = new List<GameObject>();
@@ -47,7 +53,6 @@ public class MainController : MonoBehaviour
 
         for (int i = 0; i < lives; i++)
         {
-            print(i);
             GameObject x = Instantiate(heart, livesSpawn, this.transform.rotation);
             x.transform.SetParent(canvas.transform);
             hearts.Add(x.gameObject);
@@ -56,7 +61,7 @@ public class MainController : MonoBehaviour
         }
 
         score = 0f;
-        ctrl = player.GetComponent<Ctrl>();
+        // ctrl = player.GetComponent<Ctrl>();
 
         rowRot = InvaderRow.transform.rotation;
         hp = 5f;
@@ -70,7 +75,7 @@ public class MainController : MonoBehaviour
 
     void Update()
     {
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        // enemies = GameObject.FindGameObjectsWithTag("Enemy");
         rows = GameObject.FindGameObjectsWithTag("Row");
         if (rows.Length == 0)
         {
@@ -97,6 +102,7 @@ public class MainController : MonoBehaviour
         ScoreManager();
         ColumnManager();
         LivesManager();
+
     }
 
     void Spawn()
@@ -207,6 +213,14 @@ public class MainController : MonoBehaviour
         if (lives == 0)
         {
             Destroy(player);
+            text.enabled = true;
+            gameOverWait += Time.deltaTime;
+            if (gameOverWait >= 2f)
+            {
+                SceneManager.LoadScene("Menu");
+            }
+
         }
     }
+
 }
