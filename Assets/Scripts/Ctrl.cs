@@ -66,26 +66,33 @@ public class Ctrl : MonoBehaviour
 
     }
 
-    // public void Left()
-    // {
-    //     this.transform.position += Vector3.left * (speed * Time.deltaTime);
-    // }
-    // public void Right()
-    // {
-    //     this.transform.position += Vector3.right * (speed * Time.deltaTime);
-    // }
+    public void Left()
+    {
+        if (this.transform.position.x > -2.45f)
+        {
+            this.transform.position += Vector3.left * (speed * Time.deltaTime);
+        }
+
+    }
+    public void Right()
+    {
+        if (this.transform.position.x < 2.45f)
+        {
+            this.transform.position += Vector3.right * (speed * Time.deltaTime);
+        }
+    }
     void Movement()
     {
-        float isMoving = Input.GetAxis("Horizontal");
-        if (this.transform.position.x < -2.45 && isMoving < 0)
-        {
-            isMoving = 0;
-        }
-        else if (this.transform.position.x > 2.45 && isMoving > 0)
-        {
-            isMoving = 0;
-        }
-        this.transform.position += Vector3.right * isMoving * (speed * Time.deltaTime);
+        // float isMoving = Input.GetAxis("Horizontal");
+        // if (this.transform.position.x < -2.45 && isMoving < 0)
+        // {
+        //     isMoving = 0;
+        // }
+        // else if (this.transform.position.x > 2.45 && isMoving > 0)
+        // {
+        //     isMoving = 0;
+        // }
+        // this.transform.position += Vector3.right * isMoving * (speed * Time.deltaTime);
 
 
 
