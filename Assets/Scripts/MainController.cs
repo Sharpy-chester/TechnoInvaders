@@ -55,8 +55,12 @@ public class MainController : MonoBehaviour
         {
             GameObject x = Instantiate(heart, livesSpawn, this.transform.rotation);
             x.transform.SetParent(canvas.transform);
+            x.transform.localPosition = new Vector3(-130 + (38 * i), 250, 0);
             hearts.Add(x.gameObject);
             livesSpawn.x += 38f;
+#if UNITY_EDITOR
+            x.transform.localScale = new Vector2(.37f, .37f);
+#endif
 
         }
 
@@ -75,6 +79,7 @@ public class MainController : MonoBehaviour
 
     void Update()
     {
+
         // enemies = GameObject.FindGameObjectsWithTag("Enemy");
         rows = GameObject.FindGameObjectsWithTag("Row");
         if (rows.Length == 0)
