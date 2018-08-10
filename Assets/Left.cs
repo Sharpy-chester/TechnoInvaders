@@ -19,9 +19,11 @@ public class Left : MonoBehaviour
     public float maxSpeed = 2.5f;
     public float moveVar = 1f;
     public float forceVar = 500f;
+    Ctrl control;
 
     void Start()
     {
+        control = Player.GetComponent<Ctrl>();
         width = Screen.width;
         playerRb = Player.GetComponent<Rigidbody2D>();
     }
@@ -32,11 +34,17 @@ public class Left : MonoBehaviour
         {
             if (Input.GetTouch(i).position.x > width / 2)
             {
-                Movement(moveVar);
+                if (control.alive)
+                {
+                    Movement(moveVar);
+                }
             }
             if (Input.GetTouch(i).position.x < Screen.width / 2)
             {
-                Movement(-moveVar);
+                if (control.alive)
+                {
+                    Movement(-moveVar);
+                }
             }
         }
 
@@ -46,10 +54,13 @@ public class Left : MonoBehaviour
         playerRb.position = new Vector2(Mathf.Clamp(playerRb.position.x, -2.2f, 2.2f), playerRb.position.y);
 
 
+
+
     }
 
     void Movement(float horizontalInput)
     {
+
         if (playerRb.velocity.magnitude > maxSpeed)
         {
             playerRb.velocity = playerRb.velocity.normalized * maxSpeed;
@@ -61,7 +72,10 @@ public class Left : MonoBehaviour
     void FixedUpdate()
     {
 #if UNITY_EDITOR
-        Movement(Input.GetAxis("Horizontal"));
+        if (control.alive)
+        {
+            Movement(Input.GetAxis("Horizontal"));
+        }
 #endif
     }
 }
