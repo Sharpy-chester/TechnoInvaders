@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     bool paused = false;
     public GameObject dark;
+    public GameObject sp;
 
     public void Play()
     {
@@ -41,6 +42,7 @@ public class MainMenu : MonoBehaviour
         dark.SetActive(false);
         Time.timeScale = 1f;
         paused = false;
+        sp.SetActive(true);
     }
 
     void Pause()
@@ -48,6 +50,7 @@ public class MainMenu : MonoBehaviour
         dark.SetActive(true);
         Time.timeScale = 0f;
         paused = true;
+        sp.SetActive(false);
     }
 
 }

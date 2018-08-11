@@ -24,16 +24,14 @@ public class Ctrl : MonoBehaviour
     public Sprite player;
     public bool left = false;
     public bool right = false;
-    Rigidbody2D leftRb;
-    Rigidbody2D rightRb;
+
 
     void Start()
     {
         mainController = controller.GetComponent<MainController>();
         hp = maxHp;
         spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
-        leftRb = GameObject.Find("Left").GetComponent<Rigidbody2D>();
-        rightRb = GameObject.Find("Right").GetComponent<Rigidbody2D>();
+
     }
     void Update()
     {

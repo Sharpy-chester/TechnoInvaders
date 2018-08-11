@@ -87,6 +87,7 @@ public class RowController : MonoBehaviour
             if (enemiesInRow[i] == null)
             {
                 enemiesInRow.Remove(enemiesInRow[i]);
+                mainController.special += 5f;
             }
         }
         if (enemiesInRow.Count == 0)

@@ -37,13 +37,22 @@ public class MainController : MonoBehaviour
     public GameObject canvas;
     public Text gameOver;
     Text text;
-    float gameOverWait = 0f;
-
+    public GameObject cat;
     Vector3 livesSpawn = new Vector3(43, 555, 0);
+    public float special = 0f;
+    float specialMax = 100f;
+    float specWait = 0f;
+    float specAmt;
+    bool isSpecial;
+    public Image SPBar;
+    public Image fade;
+    public GameObject scoreboard;
+    public ScoreManager scoreManager;
 
 
     void Start()
     {
+        scoreManager = scoreboard.GetComponent<ScoreManager>();
         text = gameOver.GetComponent<Text>();
         text.enabled = false;
         col[0] = new List<GameObject>();
@@ -55,7 +64,7 @@ public class MainController : MonoBehaviour
         {
             GameObject x = Instantiate(heart, livesSpawn, this.transform.rotation);
             x.transform.SetParent(canvas.transform);
-            x.transform.localPosition = new Vector3(-130 + (38 * i), 250, 0);
+            x.transform.localPosition = new Vector3(-130 + (38 * i), 240, 0);
             hearts.Add(x.gameObject);
             livesSpawn.x += 38f;
 #if UNITY_EDITOR
@@ -89,6 +98,7 @@ public class MainController : MonoBehaviour
             Spawn();
             lvlText.text = ("Level: " + level.ToString());
             currentY = 10;
+
         }
         else
         {
@@ -108,7 +118,11 @@ public class MainController : MonoBehaviour
         ColumnManager();
         LivesManager();
 
+        SpecialManager();
+
+
     }
+
 
     void Spawn()
     {
@@ -122,7 +136,7 @@ public class MainController : MonoBehaviour
                 spawnPos.y -= 1;
             }
             wait = 0f;
-            if ((level % 10) == 0 && level < 41)
+            if ((level % 5) == 0 && level < 41)
             {
                 hp += 5f;
             }
@@ -202,30 +216,73 @@ public class MainController : MonoBehaviour
             if (hearts[i] == null)
             {
                 hearts.Remove(hearts[i]);
+                special = 0f;
             }
         }
-        // if (ctrl.alive == false && ctrl.wait >= ctrl.maxWait)
-        // {
-        //     lives--;
-
-        //     int x = 0;
-        //     for (int i = 0; i < (hearts.Count - 1); i++)
-        //     {
-        //         x++;
-        //     }
-        //     Destroy(hearts[x]);
-        // }
         if (lives == 0)
         {
             Destroy(player);
+            scoreManager.Score(score, level);
             text.enabled = true;
-            gameOverWait += Time.deltaTime;
-            if (gameOverWait >= 2f)
-            {
-                SceneManager.LoadScene("Menu");
-            }
+            StartCoroutine(Pause());
+
+
+
 
         }
+    }
+
+    IEnumerator Pause()
+    {
+        Time.timeScale = 0f;
+        float x = Time.realtimeSinceStartup + 2;
+        while (Time.realtimeSinceStartup < x)
+        {
+            yield return 0;
+        }
+
+
+        // colour.a += .1f;
+        // fade.color = colour;
+        SceneManager.LoadScene("FinalScore");
+        // Time.timeScale = 1f;
+
+    }
+    void SpecialManager()
+    {
+        special = Mathf.Clamp(special, 0, specialMax);
+        float spec = special / specialMax;
+        SPBar.rectTransform.localScale = new Vector3(spec, 1, 1);
+        specWait += Time.deltaTime;
+        if (isSpecial)
+        {
+            // Time.timeScale = 0.5f;  Implement this by waiting a couple seconds after isSpecial = false and then calling this.
+            if (specWait >= 0.1f)
+            {
+                Instantiate(cat, new Vector3(Random.Range(-2.2f, 2.2f), -6, 0), this.transform.rotation);
+                specWait = 0f;
+                specAmt++;
+            }
+            if (specAmt >= 10)
+            {
+                specAmt = 0f;
+                special = 0f;
+                isSpecial = false;
+                // Time.timeScale = 1f;
+            }
+        }
+    }
+    public void SpecialActivate()
+    {
+
+
+        if (special >= specialMax)
+        {
+            isSpecial = true;
+
+        }
+
+
     }
 
 }
