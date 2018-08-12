@@ -71,12 +71,12 @@ public class Left : MonoBehaviour
     }
     void FixedUpdate()
     {
-#if UNITY_EDITOR
+        // #if UNITY_EDITOR
         if (control.alive)
         {
             Movement(Input.GetAxis("Horizontal"));
         }
-#endif
+        // #endif
     }
 }
 
