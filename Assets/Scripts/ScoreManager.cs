@@ -5,7 +5,7 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
 
-    MainController mainController;
+    // MainController mainController;
     public GameObject controller;
     public float score;
     public int level;
@@ -14,7 +14,7 @@ public class ScoreManager : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
-        mainController = controller.GetComponent<MainController>();
+        // mainController = controller.GetComponent<MainController>();
     }
 
     public void Score(float finalScore, int finalLevel)

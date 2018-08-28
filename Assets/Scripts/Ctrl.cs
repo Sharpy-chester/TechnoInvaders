@@ -32,6 +32,7 @@ public class Ctrl : MonoBehaviour
         hp = maxHp;
         spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
 
+
     }
     void Update()
     {
@@ -70,7 +71,6 @@ public class Ctrl : MonoBehaviour
 
 
     }
-
 
 
     public void Left()
@@ -124,12 +124,15 @@ public class Ctrl : MonoBehaviour
 
     void Health()
     {
+
         hpBar = hp / maxHp;
         hpImage.rectTransform.localScale = new Vector3(hpBar, 1, 1);
         if (hp <= 0)
         {
             alive = false;
         }
+
+
     }
 
     void OnTriggerEnter2D(Collider2D collision)

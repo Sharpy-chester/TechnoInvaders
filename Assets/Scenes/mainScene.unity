@@ -516,6 +516,7 @@ MonoBehaviour:
   fade: {fileID: 480225685}
   scoreboard: {fileID: 1634337210}
   scoreManager: {fileID: 0}
+  bossObj: {fileID: 1023545920521434, guid: c1c4ec22c08b242468390532010a0bff, type: 2}
 --- !u!4 &508128848
 Transform:
   m_ObjectHideFlags: 0
@@ -618,7 +619,7 @@ GameObject:
   - component: {fileID: 567113629}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

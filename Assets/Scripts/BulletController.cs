@@ -7,10 +7,13 @@ public class BulletController : MonoBehaviour
 
     public float speed = 1f;
     EnemyController enemyController;
+    Ctrl ctrl;
+    BossController bossController;
 
     void Start()
     {
-
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        ctrl = player.GetComponent<Ctrl>();
 
     }
 
@@ -25,10 +28,29 @@ public class BulletController : MonoBehaviour
     {
         if (collision.name == "Invader(Clone)")
         {
-            EnemyController enemyController = collision.gameObject.GetComponent<EnemyController>();
+            enemyController = collision.gameObject.GetComponent<EnemyController>();
             float hp = enemyController.hp;
             hp = hp - 5;
             enemyController.hp = hp;
+            Destroy(this.gameObject);
+        }
+        else if (collision.name == "EnemyHP")
+        {
+            enemyController = collision.gameObject.GetComponent<EnemyController>();
+            float hp = enemyController.hp;
+            hp -= 5;
+            enemyController.hp = hp;
+            if (ctrl.hp != ctrl.maxHp)
+            {
+                ctrl.hp += 5;
+            }
+
+            Destroy(this.gameObject);
+        }
+        else if (collision.name == "Boss_Placeholder(Clone)")
+        {
+            bossController = collision.GetComponent<BossController>();
+            bossController.hp -= 5;
             Destroy(this.gameObject);
         }
 

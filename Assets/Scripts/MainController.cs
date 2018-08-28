@@ -48,6 +48,7 @@ public class MainController : MonoBehaviour
     public Image fade;
     public GameObject scoreboard;
     public ScoreManager scoreManager;
+    public GameObject bossObj;
 
 
     void Start()
@@ -126,20 +127,27 @@ public class MainController : MonoBehaviour
 
     void Spawn()
     {
+
         wait += Time.deltaTime;
         if (wait > 3)
         {
             level++;
-            for (int i = 0; i < amount; i++)
-            {
-                Instantiate(InvaderRow, spawnPos, rowRot);
-                spawnPos.y -= 1;
-            }
-            wait = 0f;
-            if ((level % 5) == 0 && level < 41)
+            if ((level % 5) == 0)
             {
                 hp += 5f;
+                Instantiate(bossObj, new Vector3(0, 8, 0), bossObj.transform.rotation);
             }
+            else
+            {
+                for (int i = 0; i < amount; i++)
+                {
+                    Instantiate(InvaderRow, spawnPos, rowRot);
+                    spawnPos.y -= 1;
+                }
+            }
+            wait = 0f;
+
+
         }
     }
 

@@ -29,6 +29,8 @@ public class RowController : MonoBehaviour
     public List<GameObject> enemiesInRow;
     GameObject controller;
     MainController mainController;
+    public Sprite hpEnemy;
+    public int hpChance = 30;
 
     void Start()
     {
@@ -38,6 +40,14 @@ public class RowController : MonoBehaviour
         {
             spawnat = new Vector3(spawnAtX, this.transform.position.y, this.transform.position.z);
             GameObject enemyObj = Instantiate(enemy, spawnat, this.transform.rotation, this.transform);
+            int test = Random.Range(1, hpChance);
+            if (test == 1)
+            {
+                SpriteRenderer enemySprite = enemyObj.GetComponent<SpriteRenderer>();
+                enemySprite.sprite = hpEnemy;
+                enemyObj.name = "EnemyHP";
+            }
+
 
             mainController.col[i].Add(enemyObj);
 
