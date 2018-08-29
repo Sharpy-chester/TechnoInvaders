@@ -11,10 +11,21 @@ public class BossController : MonoBehaviour
     public float hp;
     public float maxhp = 30;
     public Image hpGO;
+    public GameObject[] guns;
+    float cooldown = .5f;
+    float maxCooldown = .5f;
+    public GameObject bullet;
+    int gunNum;
+    MainController mainController;
+    GameObject gameManager;
 
     void Start()
     {
         hp = maxhp;
+        gunNum = guns.Length;
+        cooldown = maxCooldown;
+        gameManager = GameObject.Find("GameManager");
+        mainController = gameManager.GetComponent<MainController>();
     }
 
     void Update()
@@ -30,7 +41,24 @@ public class BossController : MonoBehaviour
 
         if (hp <= 0)
         {
+            mainController.bossKill = true;
             Destroy(this.gameObject);
         }
+        Shooting();
+    }
+
+    void Shooting()
+    {
+        cooldown -= Time.deltaTime;
+        if (cooldown <= 0)
+        {
+            int rand = Random.Range(0, gunNum);
+            Vector3 instaPos = guns[rand].transform.position;
+            Instantiate(bullet, instaPos, this.gameObject.transform.rotation);
+            cooldown = maxCooldown;
+        }
+
+
+
     }
 }

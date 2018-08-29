@@ -22,7 +22,7 @@ public class MainController : MonoBehaviour
     public float score;
     // GameObject[] enemies;
     public List<GameObject>[] col = new List<GameObject>[4];
-    // Ctrl ctrl;
+    Ctrl ctrl;
     public GameObject player;
 
     public GameObject best1;
@@ -49,6 +49,14 @@ public class MainController : MonoBehaviour
     public GameObject scoreboard;
     public ScoreManager scoreManager;
     public GameObject bossObj;
+    public GameObject fireRateGO;
+    public GameObject healthGO;
+    public GameObject creditsGO;
+    public GameObject dark;
+    public bool bossKill = false;
+    public float credits = 0f;
+    public Text creditsTxt;
+
 
 
     void Start()
@@ -73,9 +81,9 @@ public class MainController : MonoBehaviour
 #endif
 
         }
-
+        credits = 0f;
         score = 0f;
-        // ctrl = player.GetComponent<Ctrl>();
+        ctrl = player.GetComponent<Ctrl>();
 
         rowRot = InvaderRow.transform.rotation;
         hp = 5f;
@@ -120,7 +128,11 @@ public class MainController : MonoBehaviour
         LivesManager();
 
         SpecialManager();
-
+        if (bossKill)
+        {
+            Upgrade();
+        }
+        creditsTxt.text = "Credits: " + credits;
 
     }
 
@@ -131,6 +143,7 @@ public class MainController : MonoBehaviour
         wait += Time.deltaTime;
         if (wait > 3)
         {
+            credits += 5;
             level++;
             if ((level % 5) == 0)
             {
@@ -292,5 +305,31 @@ public class MainController : MonoBehaviour
 
 
     }
+
+    void Upgrade()
+    {
+        Time.timeScale = 0;
+        dark.SetActive(true);
+
+    }
+
+    public void FireRateUp()
+    {
+        ctrl.shotDelay -= 0.2f;
+        dark.SetActive(false);
+        bossKill = false;
+        Time.timeScale = 1;
+    }
+
+    public void HealthUp()
+    {
+        ctrl.maxHp += 5;
+        ctrl.hp = ctrl.maxHp;
+        dark.SetActive(false);
+        bossKill = false;
+        Time.timeScale = 1;
+    }
+
+
 
 }

@@ -22,7 +22,7 @@ GameObject:
   m_Layer: 0
   m_Name: MiniRR
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -55,7 +55,7 @@ GameObject:
   m_Layer: 0
   m_Name: LargeL
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -70,7 +70,7 @@ GameObject:
   m_Layer: 0
   m_Name: MiniLL
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -117,7 +117,7 @@ GameObject:
   m_Layer: 0
   m_Name: LargeR
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -132,7 +132,7 @@ GameObject:
   m_Layer: 0
   m_Name: LongL
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -164,7 +164,7 @@ GameObject:
   m_Layer: 0
   m_Name: MiniLR
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -179,7 +179,7 @@ GameObject:
   m_Layer: 0
   m_Name: MiniRL
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -194,7 +194,7 @@ GameObject:
   m_Layer: 0
   m_Name: Centre
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -209,7 +209,7 @@ GameObject:
   m_Layer: 0
   m_Name: LongR
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -455,9 +455,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
-  hp: -125
-  maxhp: 100
+  hp: 300
+  maxhp: 300
   hpGO: {fileID: 114118032068794862}
+  guns:
+  - {fileID: 1415443727929760}
+  - {fileID: 1980027680165532}
+  - {fileID: 1029079308229074}
+  - {fileID: 1261664626053714}
+  - {fileID: 1082540664242050}
+  - {fileID: 1017277433107678}
+  - {fileID: 1799205655896902}
+  - {fileID: 1973006764794186}
+  - {fileID: 1974857208664812}
+  cooldown: 5
+  bullet: {fileID: 1727171409285996, guid: cc4cd6f8d24d3584280c22a0ea46e671, type: 2}
 --- !u!114 &114302182430719680
 MonoBehaviour:
   m_ObjectHideFlags: 1
