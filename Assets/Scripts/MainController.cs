@@ -56,11 +56,20 @@ public class MainController : MonoBehaviour
     public bool bossKill = false;
     public float credits = 0f;
     public Text creditsTxt;
-
+    public GameObject shop;
+    public Text creditsTxtShop;
+    SpriteRenderer playerSprite;
+    public GameObject[] shopItemsTxt;
+    public GameObject[] shopItems;
+    public Sprite pizza;
+    public Sprite bullet;
+    SpriteRenderer sp;
 
 
     void Start()
     {
+
+        playerSprite = player.GetComponent<SpriteRenderer>();
         scoreManager = scoreboard.GetComponent<ScoreManager>();
         text = gameOver.GetComponent<Text>();
         text.enabled = false;
@@ -92,6 +101,9 @@ public class MainController : MonoBehaviour
             Instantiate(InvaderRow, spawnPos, rowRot);
             spawnPos.y -= 1;
         }
+
+        sp = ctrl.shotPrefab.GetComponent<SpriteRenderer>();
+        sp.sprite = bullet;
 
     }
 
@@ -130,10 +142,11 @@ public class MainController : MonoBehaviour
         SpecialManager();
         if (bossKill)
         {
+
             Upgrade();
         }
-        creditsTxt.text = "Credits: " + credits;
-
+        creditsTxt.text = "Credits: " + credits; //doesnt really need to be in the update function. Should move it out later for optimisation 
+                                                 //(Probably doesnt NEED optimisation but its good to get into good habits)
     }
 
 
@@ -318,7 +331,21 @@ public class MainController : MonoBehaviour
         ctrl.shotDelay -= 0.2f;
         dark.SetActive(false);
         bossKill = false;
-        Time.timeScale = 1;
+        Time.timeScale = 0;
+        if ((level % 10) == 0)
+        {
+            foreach (GameObject i in hearts)
+            {
+                Image j = i.GetComponent<Image>();
+                j.enabled = false;
+            }
+            shop.SetActive(true);
+            creditsTxtShop.text = "Credits: " + credits;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
     }
 
     public void HealthUp()
@@ -327,9 +354,152 @@ public class MainController : MonoBehaviour
         ctrl.hp = ctrl.maxHp;
         dark.SetActive(false);
         bossKill = false;
-        Time.timeScale = 1;
+        Time.timeScale = 0;
+        if ((level % 10) == 0)
+        {
+            foreach (GameObject i in hearts)
+            {
+                Image j = i.GetComponent<Image>();
+                j.enabled = false;
+            }
+            shop.SetActive(true);
+            creditsTxtShop.text = "Credits: " + credits;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
     }
 
+    public void CreditsUp()
+    {
+        credits += 50;
+        dark.SetActive(false);
+        bossKill = false;
+        Time.timeScale = 0;
+        if ((level % 10) == 0)
+        {
+            foreach (GameObject i in hearts)
+            {
+                Image j = i.GetComponent<Image>();
+                j.enabled = false;
+            }
+            shop.gameObject.SetActive(true);
+            creditsTxtShop.text = "Credits: " + credits;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
 
+    }
+
+    public void RedShip() //for some reason I kept getting an error when the shop items were in another class. So theyre here now. Kill me.
+    {
+        if (credits >= 10)
+        {
+            credits -= 10;
+            creditsTxtShop.text = "Credits: " + credits;
+            playerSprite.color = new Color(1, 0, 0, 1);
+            Text x = shopItems[0].GetComponent<Text>();
+            x.text = "Purchased";
+            Button y = shopItemsTxt[0].GetComponent<Button>();
+            y.interactable = false;
+        }
+    }
+
+    public void BlueShip()
+    {
+        if (credits >= 20)
+        {
+            credits -= 20;
+            creditsTxtShop.text = "Credits: " + credits;
+            playerSprite.color = new Color(0, 0, 1, 1);
+            Text x = shopItems[1].GetComponent<Text>();
+            x.text = "Purchased";
+            Button y = shopItemsTxt[1].GetComponent<Button>();
+            y.interactable = false;
+        }
+
+    }
+
+    public void FireRate()
+    {
+        if (credits >= 30)
+        {
+            credits -= 30;
+            creditsTxtShop.text = "Credits: " + credits;
+            ctrl.shotDelay -= 0.1f;
+            Text x = shopItems[2].GetComponent<Text>();
+            x.text = "Purchased";
+            Button y = shopItemsTxt[2].GetComponent<Button>();
+            y.interactable = false;
+        }
+    }
+
+    public void Health()
+    {
+        if (credits >= 30)
+        {
+            credits -= 30;
+            creditsTxtShop.text = "Credits: " + credits;
+            ctrl.maxHp += 5;
+            ctrl.hp = ctrl.maxHp;
+            Text x = shopItems[3].GetComponent<Text>();
+            x.text = "Purchased";
+            Button y = shopItemsTxt[3].GetComponent<Button>();
+            y.interactable = false;
+        }
+    }
+
+    public void Pizza()
+    {
+        if (credits >= 100)
+        {
+            credits -= 100;
+            creditsTxtShop.text = "Credits: " + credits;
+            SpriteRenderer sp = ctrl.shotPrefab.GetComponent<SpriteRenderer>();
+            sp.sprite = pizza;
+
+            Text x = shopItems[4].GetComponent<Text>();
+            x.text = "Purchased";
+            Button y = shopItemsTxt[4].GetComponent<Button>();
+            y.interactable = false;
+        }
+    }
+
+    public void Lives()
+    {
+        if (credits >= 50 && lives < 3)
+        {
+            credits -= 50;
+            creditsTxtShop.text = "Credits: " + credits;
+            lives++;
+            GameObject j = Instantiate(heart, livesSpawn, this.transform.rotation);
+            j.transform.SetParent(canvas.transform);
+            j.transform.localPosition = new Vector3(-130 + (38 * hearts.Count), 240, 0);
+            hearts.Add(j.gameObject);
+            Image d = j.GetComponent<Image>();
+            d.enabled = false;
+#if UNITY_EDITOR
+            j.transform.localScale = new Vector2(.37f, .37f);
+#endif
+            Text x = shopItems[5].GetComponent<Text>();
+            x.text = "Purchased";
+            Button y = shopItemsTxt[5].GetComponent<Button>();
+            y.interactable = false;
+        }
+    }
+
+    public void Exit()
+    {
+        shop.gameObject.SetActive(false);
+        foreach (GameObject i in hearts)
+        {
+            Image j = i.GetComponent<Image>();
+            j.enabled = true;
+        }
+        Time.timeScale = 1;
+    }
 
 }
