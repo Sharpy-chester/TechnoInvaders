@@ -1213,7 +1213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   timer: 0
-  shotDelay: 0.1
+  shotDelay: 0.3
   shotPrefab: {fileID: 1089306942833362, guid: 1a29fe8323d7af4409c0d2e782792f32, type: 2}
   controller: {fileID: 508128846}
   hpImage: {fileID: 691859300}

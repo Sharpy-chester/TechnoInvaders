@@ -32,6 +32,8 @@ public class RowController : MonoBehaviour
     public Sprite hpEnemy;
     public int hpChance = 30;
 
+    //Check what needs to be public and what doesnt. Way too much clutter
+
     void Start()
     {
         controller = GameObject.Find("GameManager");
