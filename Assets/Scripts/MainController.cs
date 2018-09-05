@@ -89,6 +89,18 @@ public class MainController : MonoBehaviour
             x.transform.localScale = new Vector2(.37f, .37f);
 #endif
 
+#if UNITY_STANDALONE
+            x.transform.localScale = new Vector2(.37f, .37f);
+#endif
+
+#if UNITY_WEBGL
+            x.transform.localScale = new Vector2(.37f, .37f);
+#endif
+
+#if UNITY_ANDROID
+            x.transform.localScale = new Vector2(1, 1);
+#endif
+
         }
         credits = 0f;
         score = 0f;
@@ -328,7 +340,7 @@ public class MainController : MonoBehaviour
 
     public void FireRateUp()
     {
-        ctrl.shotDelay -= 0.2f;
+        ctrl.shotDelay *= 0.8f;
         dark.SetActive(false);
         bossKill = false;
         Time.timeScale = 0;
@@ -429,7 +441,7 @@ public class MainController : MonoBehaviour
         {
             credits -= 30;
             creditsTxtShop.text = "Credits: " + credits;
-            ctrl.shotDelay -= 0.1f;
+            ctrl.shotDelay *= 0.8f;
             Text x = shopItems[2].GetComponent<Text>();
             x.text = "Purchased";
             Button y = shopItemsTxt[2].GetComponent<Button>();

@@ -10,6 +10,11 @@ public class ScoreManager : MonoBehaviour
     public float score;
     public int level;
 
+    void Start()
+    {
+        
+    }
+
 
     void Awake()
     {

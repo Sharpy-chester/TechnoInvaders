@@ -50,7 +50,7 @@ public class Left : MonoBehaviour
 
 
 
-
+        
         playerRb.position = new Vector2(Mathf.Clamp(playerRb.position.x, -2.2f, 2.2f), playerRb.position.y);
 
 

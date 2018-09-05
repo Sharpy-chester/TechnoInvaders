@@ -9,6 +9,11 @@ public class MainMenu : MonoBehaviour
     public GameObject dark;
     public GameObject sp;
 
+    void Start()
+    {
+        Screen.SetResolution(432, 768, false, 60);
+    }
+
     public void Play()
     {
         SceneManager.LoadScene("mainScene");
