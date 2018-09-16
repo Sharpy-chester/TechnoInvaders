@@ -11,7 +11,8 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
-        Screen.SetResolution(432, 768, false, 60);
+
+        Screen.SetResolution(432, 768, true, 60);
     }
 
     public void Play()

@@ -98,7 +98,7 @@ public class MainController : MonoBehaviour
 #endif
 
 #if UNITY_ANDROID
-            x.transform.localScale = new Vector2(1, 1);
+            x.transform.localScale = new Vector2(.37f, .37f);
 #endif
 
         }
