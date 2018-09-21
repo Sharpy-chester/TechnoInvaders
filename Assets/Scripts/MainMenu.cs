@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
@@ -9,10 +10,18 @@ public class MainMenu : MonoBehaviour
     public GameObject dark;
     public GameObject sp;
 
+    public GameObject shop;
+    public Text creditsTxtShop;
+
+
+    MainController mainController;
+
+
     void Start()
     {
 
         Screen.SetResolution(432, 768, true, 60);
+        mainController = GameObject.Find("GameManager").GetComponent<MainController>();
     }
 
     public void Play()
@@ -57,6 +66,12 @@ public class MainMenu : MonoBehaviour
         Time.timeScale = 0f;
         paused = true;
         sp.SetActive(false);
+    }
+
+    public void Shop()
+    {
+        shop.SetActive(true);
+        creditsTxtShop.text = "Credits: " + mainController.credits;
     }
 
 }

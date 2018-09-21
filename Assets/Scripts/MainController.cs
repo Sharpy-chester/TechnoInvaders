@@ -351,8 +351,7 @@ public class MainController : MonoBehaviour
                 Image j = i.GetComponent<Image>();
                 j.enabled = false;
             }
-            shop.SetActive(true);
-            creditsTxtShop.text = "Credits: " + credits;
+
         }
         else
         {
@@ -374,8 +373,7 @@ public class MainController : MonoBehaviour
                 Image j = i.GetComponent<Image>();
                 j.enabled = false;
             }
-            shop.SetActive(true);
-            creditsTxtShop.text = "Credits: " + credits;
+
         }
         else
         {
@@ -396,8 +394,6 @@ public class MainController : MonoBehaviour
                 Image j = i.GetComponent<Image>();
                 j.enabled = false;
             }
-            shop.gameObject.SetActive(true);
-            creditsTxtShop.text = "Credits: " + credits;
         }
         else
         {

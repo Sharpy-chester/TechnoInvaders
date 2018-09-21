@@ -48,6 +48,5 @@ public class Shop : MonoBehaviour
     {
 
         this.gameObject.SetActive(false);
-        Time.timeScale = 1;
     }
 }
