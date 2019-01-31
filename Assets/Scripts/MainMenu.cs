@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
     MainController mainController;
 
 
-    void Start()
+    void Awake()
     {
 
         Screen.SetResolution(432, 768, true, 60);

@@ -9,6 +9,7 @@ public class BulletController : MonoBehaviour
     EnemyController enemyController;
     Ctrl ctrl;
     BossController bossController;
+    public GameObject enemyHitParticle;
 
     void Start()
     {
@@ -29,6 +30,8 @@ public class BulletController : MonoBehaviour
         if (collision.name == "Invader(Clone)")
         {
             enemyController = collision.gameObject.GetComponent<EnemyController>();
+            GameObject particle = Instantiate(enemyHitParticle, this.transform.position, enemyHitParticle.transform.rotation);
+            Destroy(particle, 2);
             float hp = enemyController.hp;
             hp = hp - 5;
             enemyController.hp = hp;
