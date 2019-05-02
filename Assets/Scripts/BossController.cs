@@ -18,14 +18,16 @@ public class BossController : MonoBehaviour
     int gunNum;
     MainController mainController;
     GameObject gameManager;
+    ShakeManager shake;
 
-    void Start()
+    void Awake()
     {
         hp = maxhp;
         gunNum = guns.Length;
         cooldown = maxCooldown;
         gameManager = GameObject.Find("GameManager");
         mainController = gameManager.GetComponent<MainController>();
+        shake = GameObject.Find("CameraShakeManager").GetComponent<ShakeManager>();
     }
 
     void Update()
@@ -41,6 +43,7 @@ public class BossController : MonoBehaviour
 
         if (hp <= 0)
         {
+            shake.CamShake();
             mainController.bossKill = true;
             Destroy(this.gameObject);
         }

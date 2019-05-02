@@ -16,12 +16,18 @@ public class MainMenu : MonoBehaviour
 
     MainController mainController;
 
-
-    void Start()
+    void OnSceneLoad()
     {
 
+    }
+
+    void Awake()
+    {
         Screen.SetResolution(432, 768, true, 60);
-        mainController = GameObject.Find("GameManager").GetComponent<MainController>();
+        if (SceneManager.GetActiveScene().name == "MainScene")
+        {
+            mainController = GameObject.Find("GameManager").GetComponent<MainController>();
+        }
     }
 
     public void Play()

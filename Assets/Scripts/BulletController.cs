@@ -9,6 +9,7 @@ public class BulletController : MonoBehaviour
     EnemyController enemyController;
     Ctrl ctrl;
     BossController bossController;
+    public GameObject hitParticleSystem;
 
     void Start()
     {
@@ -28,13 +29,15 @@ public class BulletController : MonoBehaviour
     {
         if (collision.name == "Invader(Clone)")
         {
+            // GameObject particle = Instantiate(hitParticleSystem, this.transform);
+            // particle.transform.parent = null;
             enemyController = collision.gameObject.GetComponent<EnemyController>();
             float hp = enemyController.hp;
             hp = hp - 5;
             enemyController.hp = hp;
             Destroy(this.gameObject);
         }
-        else if (collision.name == "EnemyHP")
+        else if (collision.name == "EnemyHP") //This is fine for now but if I add more enemy types I should optimise this
         {
             enemyController = collision.gameObject.GetComponent<EnemyController>();
             float hp = enemyController.hp;
@@ -49,6 +52,8 @@ public class BulletController : MonoBehaviour
         }
         else if (collision.name == "Boss_Placeholder(Clone)")
         {
+            GameObject particle = Instantiate(hitParticleSystem, this.transform);
+            particle.transform.parent = null;
             bossController = collision.GetComponent<BossController>();
             bossController.hp -= 5;
             Destroy(this.gameObject);

@@ -13,12 +13,14 @@ public class EnemyController : MonoBehaviour
     public GameObject shot;
     public float wait = 0f;
     public float maxWait;
+    public GameObject killParticleSystem;
+    ShakeManager shake;
 
-    void Start()
+    void Awake()
     {
         GameObject gameManager = GameObject.Find("GameManager");
         mainController = gameManager.GetComponent<MainController>();
-
+        shake = GameObject.Find("CameraShakeManager").GetComponent<ShakeManager>();
 
         maxhp = mainController.hp;
         hp = mainController.hp;
@@ -34,6 +36,9 @@ public class EnemyController : MonoBehaviour
 
         if (hp <= 0)
         {
+            GameObject explosion = Instantiate(killParticleSystem, this.transform.position, this.transform.rotation);
+            explosion.transform.parent = null;
+            shake.CamShake();
             mainController.score += 10f;
             Destroy(this.gameObject);
         }

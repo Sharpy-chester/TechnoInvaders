@@ -54,7 +54,7 @@ public class MainController : MonoBehaviour
     public GameObject creditsGO;
     public GameObject dark;
     public bool bossKill = false;
-    public float credits = 0f;
+    public int credits = 0;
     public Text creditsTxt;
     public GameObject shop;
     public Text creditsTxtShop;
@@ -102,7 +102,7 @@ public class MainController : MonoBehaviour
 #endif
 
         }
-        credits = 0f;
+        credits = 0;
         score = 0f;
         ctrl = player.GetComponent<Ctrl>();
 
@@ -320,22 +320,16 @@ public class MainController : MonoBehaviour
     }
     public void SpecialActivate()
     {
-
-
         if (special >= specialMax)
         {
             isSpecial = true;
-
         }
-
-
     }
 
     void Upgrade()
     {
         Time.timeScale = 0;
         dark.SetActive(true);
-
     }
 
     public void FireRateUp()
@@ -343,20 +337,8 @@ public class MainController : MonoBehaviour
         ctrl.shotDelay *= 0.8f;
         dark.SetActive(false);
         bossKill = false;
-        Time.timeScale = 0;
-        if ((level % 10) == 0)
-        {
-            foreach (GameObject i in hearts)
-            {
-                Image j = i.GetComponent<Image>();
-                j.enabled = false;
-            }
+        Time.timeScale = 1;
 
-        }
-        else
-        {
-            Time.timeScale = 1;
-        }
     }
 
     public void HealthUp()
@@ -365,20 +347,20 @@ public class MainController : MonoBehaviour
         ctrl.hp = ctrl.maxHp;
         dark.SetActive(false);
         bossKill = false;
-        Time.timeScale = 0;
-        if ((level % 10) == 0)
-        {
-            foreach (GameObject i in hearts)
-            {
-                Image j = i.GetComponent<Image>();
-                j.enabled = false;
-            }
+        Time.timeScale = 1;
+        // if ((level % 10) == 0)
+        // {
+        //     foreach (GameObject i in hearts)
+        //     {
+        //         Image j = i.GetComponent<Image>();
+        //         j.enabled = false;
+        //     }
 
-        }
-        else
-        {
-            Time.timeScale = 1;
-        }
+        // }
+        // else
+        // {
+        //     Time.timeScale = 1;
+        // }
     }
 
     public void CreditsUp()
@@ -386,19 +368,8 @@ public class MainController : MonoBehaviour
         credits += 50;
         dark.SetActive(false);
         bossKill = false;
-        Time.timeScale = 0;
-        if ((level % 10) == 0)
-        {
-            foreach (GameObject i in hearts)
-            {
-                Image j = i.GetComponent<Image>();
-                j.enabled = false;
-            }
-        }
-        else
-        {
-            Time.timeScale = 1;
-        }
+        Time.timeScale = 1;
+
 
     }
 
@@ -496,6 +467,16 @@ public class MainController : MonoBehaviour
             x.text = "Purchased";
             Button y = shopItemsTxt[5].GetComponent<Button>();
             y.interactable = false;
+        }
+    }
+
+    public void Back()
+    {
+        shop.gameObject.SetActive(false);
+        foreach (GameObject i in hearts)
+        {
+            Image j = i.GetComponent<Image>();
+            j.enabled = true;
         }
     }
 

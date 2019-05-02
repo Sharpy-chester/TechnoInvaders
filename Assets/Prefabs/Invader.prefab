@@ -136,6 +136,8 @@ MonoBehaviour:
   shot: {fileID: 1727171409285996, guid: cc4cd6f8d24d3584280c22a0ea46e671, type: 2}
   wait: 0
   maxWait: 5
+  killParticleSystem: {fileID: 1222253147475358, guid: 2c5fa7deca5656a489208d8150c8f961,
+    type: 2}
 --- !u!114 &114254631665332804
 MonoBehaviour:
   m_ObjectHideFlags: 1
