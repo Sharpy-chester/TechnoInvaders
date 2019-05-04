@@ -468,7 +468,6 @@ MonoBehaviour:
   - {fileID: 1799205655896902}
   - {fileID: 1973006764794186}
   - {fileID: 1974857208664812}
-  cooldown: 5
   bullet: {fileID: 1727171409285996, guid: cc4cd6f8d24d3584280c22a0ea46e671, type: 2}
 --- !u!114 &114302182430719680
 MonoBehaviour:

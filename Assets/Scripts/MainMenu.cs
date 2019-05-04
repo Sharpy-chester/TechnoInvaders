@@ -71,6 +71,7 @@ public class MainMenu : MonoBehaviour
 
     public void Shop()
     {
+        mainController = GameObject.Find("GameManager").GetComponent<MainController>();
         shop.SetActive(true);
         creditsTxtShop.text = "Credits: " + mainController.credits;
     }
